@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobility Link Library</title>
+<style>
+  :root {
+    --bg: #f5f5f0;
+    --sidebar-bg: #1a2a3a;
+    --sidebar-text: #c8d8e8;
+    --sidebar-active: #3a8fc4;
+    --accent: #2a6fa8;
+    --accent2: #e8f4fd;
+    --border: #d0d8e0;
+    --ok: #2d7a3a;
+    --err: #c0392b;
+    --warn: #e67e22;
+    --unknown: #888;
+    --card-bg: #fff;
+    --sub-bg: #f0f4f8;
+    --text: #1a1a2e;
+    --muted: #667;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  #sidebar {
+    width: 220px; min-width: 220px; background: var(--sidebar-bg); color: var(--sidebar-text);
+    display: flex; flex-direction: column; padding: 0; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; overflow-y: auto;
+  }
+  #sidebar h1 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 18px 16px 12px; color: #fff; border-bottom: 1px solid #2a3a4a; }
+  #sidebar h1 span { display: block; font-size: 10px; font-weight: 400; color: #8aaccc; margin-top: 2px; letter-spacing: 0.04em; }
+  .nav-section { padding: 4px 0; }
+  .nav-section-btn {
+    display: flex; align-items: center; width: 100%; background: none; border: none; color: var(--sidebar-text);
+    font-size: 13px; font-weight: 600; padding: 8px 16px; cursor: pointer; text-align: left; gap: 6px;
+    transition: background 0.15s;
+  }
+  .nav-section-btn:hover { background: #243447; }
+  .nav-section-btn.active { background: #243447; color: #fff; border-left: 3px solid var(--sidebar-active); }
+  .nav-section-btn .arrow { font-size: 9px; margin-left: auto; transition: transform 0.2s; }
+  .nav-section-btn.open .arrow { transform: rotate(90deg); }
+  .nav-subs { display: none; }
+  .nav-subs.open { display: block; }
+  .nav-sub-btn {
+    display: block; width: 100%; background: none; border: none; color: #9ab; font-size: 12px;
+    padding: 5px 16px 5px 28px; cursor: pointer; text-align: left; transition: background 0.15s;
+  }
+  .nav-sub-btn:hover { background: #243447; color: #c8d8e8; }
+  .nav-sub-btn.active { color: #fff; background: #1e3a50; }
+  .sidebar-footer { margin-top: auto; padding: 12px 16px; font-size: 11px; color: #556; border-top: 1px solid #2a3a4a; }
+  #add-section-btn {
+    margin: 8px 12px; width: calc(100% - 24px); background: #243447; border: 1px dashed #3a5a7a;
+    color: #8aaccc; font-size: 11px; padding: 6px; cursor: pointer; border-radius: 4px;
+  }
+  #add-section-btn:hover { background: #2a4060; color: #c8d8e8; }
+
+  /* MAIN */
+  #main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; }
+  #topbar {
+    background: #fff; border-bottom: 1px solid var(--border); padding: 10px 24px;
+    display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 50;
+  }
+  #topbar h2 { font-size: 16px; font-weight: 700; color: var(--accent); }
+  #topbar .breadcrumb { font-size: 12px; color: var(--muted); }
+  #search-box {
+    margin-left: auto; padding: 6px 12px; border: 1px solid var(--border); border-radius: 20px;
+    font-size: 13px; width: 220px; outline: none;
+  }
+  #search-box:focus { border-color: var(--accent); }
+
+  #content { padding: 24px; flex: 1; }
+
+  /* SECTION VIEW */
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .btn-icon {
+    background: none; border: 1px solid var(--border); border-radius: 4px; padding: 4px 8px;
+    cursor: pointer; font-size: 12px; color: var(--muted); transition: all 0.15s;
+  }
+  .btn-icon:hover { background: var(--accent2); color: var(--accent); border-color: var(--accent); }
+  .btn-danger:hover { background: #fde8e8; color: var(--err); border-color: var(--err); }
+  .btn-primary {
+    background: var(--accent); color: #fff; border: none; border-radius: 4px;
+    padding: 6px 14px; cursor: pointer; font-size: 13px; transition: background 0.15s;
+  }
+  .btn-primary:hover { background: #1a5a90; }
+  .btn-sm { padding: 3px 8px; font-size: 11px; }
+  .check-all-btn {
+    background: #e8f4fd; color: var(--accent); border: 1px solid #b0d0ec;
+    border-radius: 4px; padding: 5px 12px; cursor: pointer; font-size: 12px;
+  }
+  .check-all-btn:hover { background: #d0e8f8; }
+
+  /* SUBSECTION */
+  .subsection {
+    background: var(--sub-bg); border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 20px; overflow: hidden;
+  }
+  .subsection-header {
+    display: flex; align-items: center; padding: 10px 16px; background: #e4edf5;
+    border-bottom: 1px solid var(--border); gap: 8px;
+  }
+  .subsection-header h3 { font-size: 14px; font-weight: 600; color: #2a4a6a; flex: 1; }
+  .subsection-body { padding: 12px 16px; }
+
+  /* LINK CARD */
+  .link-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px;
+    margin-bottom: 10px; transition: box-shadow 0.15s;
+  }
+  .link-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .link-card-top {
+    display: flex; align-items: flex-start; padding: 10px 12px; gap: 10px;
+  }
+  .link-drag { color: #bbb; cursor: grab; font-size: 16px; padding-top: 2px; user-select: none; }
+  .link-drag:active { cursor: grabbing; }
+  .link-info { flex: 1; min-width: 0; }
+  .link-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .link-title {
+    font-size: 14px; font-weight: 600; color: var(--accent); text-decoration: none;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 400px;
+  }
+  .link-title:hover { text-decoration: underline; }
+  .status-badge {
+    font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px;
+    text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0;
+  }
+  .status-ok { background: #d4f0da; color: var(--ok); }
+  .status-404 { background: #fde8e8; color: var(--err); }
+  .status-error { background: #fde8e8; color: var(--err); }
+  .status-unknown { background: #eee; color: var(--unknown); }
+  .link-url { font-size: 11px; color: var(--muted); margin-top: 2px; word-break: break-all; }
+  .link-desc { font-size: 12px; color: #445; margin-top: 4px; }
+  .link-meta { font-size: 10px; color: #aaa; margin-top: 3px; }
+  .link-actions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+
+  /* COMMENT */
+  .link-comment-row {
+    border-top: 1px solid #f0f0f0; padding: 8px 12px 10px 42px; display: none;
+  }
+  .link-comment-row.open { display: block; }
+  .comment-label { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .comment-textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 4px; padding: 6px 8px;
+    font-size: 12px; font-family: inherit; resize: vertical; min-height: 56px; color: var(--text);
+    outline: none;
+  }
+  .comment-textarea:focus { border-color: var(--accent); }
+  .comment-save-btn {
+    margin-top: 4px; background: var(--accent2); border: 1px solid #b0d0ec;
+    color: var(--accent); border-radius: 4px; padding: 3px 10px; font-size: 11px; cursor: pointer;
+  }
+
+  /* ADD LINK FORM */
+  .add-link-form {
+    background: #f8fbff; border: 1px dashed #b0d0ec; border-radius: 6px;
+    padding: 12px 14px; margin-top: 8px; display: none;
+  }
+  .add-link-form.open { display: block; }
+  .form-row { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .form-input {
+    border: 1px solid var(--border); border-radius: 4px; padding: 6px 10px;
+    font-size: 13px; flex: 1; min-width: 160px; outline: none; font-family: inherit;
+  }
+  .form-input:focus { border-color: var(--accent); }
+
+  /* MOVE MODAL */
+  #modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  #modal-overlay.open { display: flex; }
+  #modal {
+    background: #fff; border-radius: 10px; padding: 24px; width: 420px; max-width: 95vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  #modal h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--accent); }
+  .modal-select {
+    width: 100%; border: 1px solid var(--border); border-radius: 4px; padding: 8px;
+    font-size: 13px; margin-bottom: 10px; outline: none;
+  }
+  .modal-select:focus { border-color: var(--accent); }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+  .btn-cancel { background: #eee; border: none; border-radius: 4px; padding: 7px 16px; cursor: pointer; font-size: 13px; }
+  .btn-cancel:hover { background: #ddd; }
+
+  /* EDIT MODAL */
+  #edit-modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  #edit-modal-overlay.open { display: flex; }
+  #edit-modal {
+    background: #fff; border-radius: 10px; padding: 24px; width: 480px; max-width: 95vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  #edit-modal h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--accent); }
+  .edit-form-row { margin-bottom: 10px; }
+  .edit-form-row label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; }
+  .edit-form-row input, .edit-form-row textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 4px; padding: 7px 10px;
+    font-size: 13px; font-family: inherit; outline: none;
+  }
+  .edit-form-row input:focus, .edit-form-row textarea:focus { border-color: var(--accent); }
+  .edit-form-row textarea { resize: vertical; min-height: 60px; }
+
+  /* SEARCH RESULTS */
+  #search-results { display: none; }
+  #search-results.open { display: block; }
+  .search-result-item {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 14px; margin-bottom: 8px;
+  }
+  .search-result-path { font-size: 10px; color: var(--muted); margin-bottom: 3px; }
+
+  /* HOME */
+  #home-view .section-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-top: 16px; }
+  .section-tile {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 18px 16px; cursor: pointer; transition: all 0.15s; text-align: center;
+  }
+  .section-tile:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-color: var(--accent); }
+  .section-tile .icon { font-size: 28px; margin-bottom: 8px; }
+  .section-tile h3 { font-size: 14px; font-weight: 700; color: var(--accent); }
+  .section-tile .count { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid #ccc; border-top-color: var(--accent); border-radius: 50%; animation: spin 0.6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .empty-sub { color: var(--muted); font-size: 12px; font-style: italic; padding: 8px 0; }
+
+  /* REORDER BUTTONS */
+  .order-btns { display: flex; flex-direction: column; gap: 1px; }
+  .order-btn { background: none; border: none; cursor: pointer; color: #ccc; font-size: 10px; padding: 1px 3px; line-height: 1; }
+  .order-btn:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <h1>Mobility Links <span>Brussels Mobility Datamap</span></h1>
+  <div id="nav-sections"></div>
+  <button id="add-section-btn">+ Add section</button>
+  <div class="sidebar-footer">LinkLib v1.0</div>
+</nav>
+
+<div id="main">
+  <div id="topbar">
+    <div>
+      <div class="breadcrumb" id="breadcrumb">Home</div>
+      <h2 id="topbar-title">Mobility Link Library</h2>
+    </div>
+    <input type="text" id="search-box" placeholder="Search links…" autocomplete="off">
+  </div>
+  <div id="content">
+    <div id="home-view"></div>
+    <div id="section-view" style="display:none"></div>
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- Move modal -->
+<div id="modal-overlay">
+  <div id="modal">
+    <h3>Move link to…</h3>
+    <label style="font-size:12px;color:#667;display:block;margin-bottom:4px">Section</label>
+    <select id="move-section-sel" class="modal-select"></select>
+    <label style="font-size:12px;color:#667;display:block;margin-bottom:4px">Subsection</label>
+    <select id="move-sub-sel" class="modal-select"></select>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="confirmMove()">Move</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit modal -->
+<div id="edit-modal-overlay">
+  <div id="edit-modal">
+    <h3>Edit link</h3>
+    <div class="edit-form-row">
+      <label>URL</label>
+      <input type="url" id="edit-url" placeholder="https://…">
+    </div>
+    <div class="edit-form-row">
+      <label>Title</label>
+      <input type="text" id="edit-title" placeholder="Link title">
+    </div>
+    <div class="edit-form-row">
+      <label>Description</label>
+      <textarea id="edit-desc" placeholder="Short description…"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+      <button class="btn-primary" onclick="confirmEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let data = { sections: [] };
+let currentSectionId = null;
+let movingLinkId = null;
+let editingLinkId = null;
+
+// ── BOOT ────────────────────────────────────────────────────────────────────
+async function load() {
+  const r = await fetch('/api/data');
+  data = await r.json();
+  renderSidebar();
+  if (currentSectionId) renderSection(currentSectionId);
+  else renderHome();
+}
+
+async function save() {
+  await fetch('/api/data', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+}
+
+// ── SIDEBAR ──────────────────────────────────────────────────────────────────
+function renderSidebar() {
+  const el = document.getElementById('nav-sections');
+  el.innerHTML = '';
+  for (const sec of data.sections) {
+    const wrap = document.createElement('div');
+    wrap.className = 'nav-section';
+    const btn = document.createElement('button');
+    btn.className = 'nav-section-btn' + (currentSectionId === sec.id ? ' active open' : '');
+    btn.innerHTML = `${sec.title} <span class="arrow">▶</span>`;
+    btn.onclick = () => {
+      currentSectionId = sec.id;
+      renderSidebar();
+      renderSection(sec.id);
+      showView('section');
+    };
+    wrap.appendChild(btn);
+
+    const subs = document.createElement('div');
+    subs.className = 'nav-subs' + (currentSectionId === sec.id ? ' open' : '');
+    for (const sub of sec.subsections) {
+      const sb = document.createElement('button');
+      sb.className = 'nav-sub-btn';
+      sb.textContent = sub.title;
+      sb.onclick = (e) => {
+        e.stopPropagation();
+        currentSectionId = sec.id;
+        renderSidebar();
+        renderSection(sec.id, sub.id);
+        showView('section');
+        setTimeout(() => {
+          const el = document.getElementById('sub_' + sub.id);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      };
+      subs.appendChild(sb);
+    }
+    wrap.appendChild(subs);
+    el.appendChild(wrap);
+  }
+}
+
+document.getElementById('add-section-btn').onclick = async () => {
+  const title = prompt('Section name:');
+  if (!title) return;
+  const r = await fetch('/api/sections', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title }) });
+  const sec = await r.json();
+  data.sections.push(sec);
+  renderSidebar();
+  renderHome();
+};
+
+// ── VIEWS ───────────────────────────────────────────────────────────────────
+function showView(v) {
+  document.getElementById('home-view').style.display = v === 'home' ? '' : 'none';
+  document.getElementById('section-view').style.display = v === 'section' ? '' : 'none';
+  document.getElementById('search-results').classList.toggle('open', v === 'search');
+}
+
+function renderHome() {
+  showView('home');
+  document.getElementById('breadcrumb').textContent = 'Home';
+  document.getElementById('topbar-title').textContent = 'Mobility Link Library';
+  const icons = { europe: '🇪🇺', federal: '🏛️', brussels: '🏙️', vlaanderen: '🦁', wallonia: '🐓' };
+  const view = document.getElementById('home-view');
+  let total = 0;
+  for (const s of data.sections) for (const sub of s.subsections) total += sub.links.length;
+  view.innerHTML = `<p style="color:#667;font-size:13px;margin-bottom:8px">${total} links across ${data.sections.length} sections</p><div class="section-grid"></div>`;
+  const grid = view.querySelector('.section-grid');
+  for (const sec of data.sections) {
+    let count = 0;
+    for (const sub of sec.subsections) count += sub.links.length;
+    const tile = document.createElement('div');
+    tile.className = 'section-tile';
+    tile.innerHTML = `<div class="icon">${icons[sec.id] || '📂'}</div><h3>${sec.title}</h3><div class="count">${count} link${count !== 1 ? 's' : ''} · ${sec.subsections.length} subsection${sec.subsections.length !== 1 ? 's' : ''}</div>`;
+    tile.onclick = () => { currentSectionId = sec.id; renderSidebar(); renderSection(sec.id); showView('section'); };
+    grid.appendChild(tile);
+  }
+}
+
+function renderSection(sectionId, scrollToSubId) {
+  const sec = data.sections.find(s => s.id === sectionId);
+  if (!sec) return;
+  document.getElementById('breadcrumb').textContent = 'Home › ' + sec.title;
+  document.getElementById('topbar-title').textContent = sec.title;
+  const view = document.getElementById('section-view');
+  view.innerHTML = '';
+
+  // Section header
+  const hdr = document.createElement('div');
+  hdr.className = 'section-header';
+  hdr.innerHTML = `
+    <h2>${sec.title}</h2>
+    <button class="btn-icon" onclick="renameSection('${sec.id}')">✏️ Rename</button>
+    <button class="btn-icon" onclick="addSubsection('${sec.id}')">+ Add subsection</button>
+    <button class="check-all-btn" onclick="checkAllSection('${sec.id}')">⚡ Check all links</button>
+    <button class="btn-icon btn-danger" onclick="deleteSection('${sec.id}')">🗑 Delete section</button>
+  `;
+  view.appendChild(hdr);
+
+  // Subsections
+  for (const sub of sec.subsections) {
+    const subEl = renderSubsection(sec, sub);
+    subEl.id = 'sub_' + sub.id;
+    view.appendChild(subEl);
+  }
+}
+
+function renderSubsection(sec, sub) {
+  const wrap = document.createElement('div');
+  wrap.className = 'subsection';
+
+  const hdr = document.createElement('div');
+  hdr.className = 'subsection-header';
+  hdr.innerHTML = `
+    <h3>${sub.title}</h3>
+    <span style="font-size:11px;color:#889;margin-right:8px">${sub.links.length} link${sub.links.length !== 1 ? 's' : ''}</span>
+    <button class="btn-icon btn-sm" onclick="renameSubsection('${sec.id}','${sub.id}')">✏️</button>
+    <button class="btn-icon btn-sm" onclick="deleteSubsection('${sec.id}','${sub.id}')">🗑</button>
+  `;
+  wrap.appendChild(hdr);
+
+  const body = document.createElement('div');
+  body.className = 'subsection-body';
+  body.id = 'subbody_' + sub.id;
+
+  if (sub.links.length === 0) {
+    body.innerHTML = '<div class="empty-sub">No links yet — add one below.</div>';
+  }
+  for (let i = 0; i < sub.links.length; i++) {
+    body.appendChild(renderLinkCard(sec, sub, sub.links[i], i));
+  }
+
+  // Add link form
+  const formToggle = document.createElement('button');
+  formToggle.className = 'btn-icon btn-sm';
+  formToggle.style.marginTop = '8px';
+  formToggle.textContent = '+ Add link';
+  formToggle.onclick = () => form.classList.toggle('open');
+  body.appendChild(formToggle);
+
+  const form = document.createElement('div');
+  form.className = 'add-link-form';
+  form.innerHTML = `
+    <div class="form-row">
+      <input class="form-input" placeholder="URL https://…" id="newurl_${sub.id}" type="url">
+      <input class="form-input" placeholder="Title (optional)" id="newtitle_${sub.id}">
+    </div>
+    <div class="form-row">
+      <input class="form-input" placeholder="Description (optional)" id="newdesc_${sub.id}" style="flex:2">
+      <button class="btn-primary btn-sm" onclick="addLink('${sec.id}','${sub.id}')">Add</button>
+    </div>
+  `;
+  body.appendChild(form);
+  wrap.appendChild(body);
+  return wrap;
+}
+
+function renderLinkCard(sec, sub, link, idx) {
+  const card = document.createElement('div');
+  card.className = 'link-card';
+  card.id = 'card_' + link.id;
+
+  const statusClass = 'status-' + (link.status === 'ok' ? 'ok' : link.status === '404' ? '404' : link.status === 'error' ? 'error' : 'unknown');
+  const statusText = link.status === 'unknown' ? '?' : link.status;
+  const checkedText = link.lastChecked ? 'Checked: ' + new Date(link.lastChecked).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Never checked';
+  const hasComment = link.comment && link.comment.trim().length > 0;
+
+  card.innerHTML = `
+    <div class="link-card-top">
+      <div class="order-btns">
+        <button class="order-btn" title="Move up" onclick="reorderLink('${sec.id}','${sub.id}','${link.id}',-1)">▲</button>
+        <button class="order-btn" title="Move down" onclick="reorderLink('${sec.id}','${sub.id}','${link.id}',1)">▼</button>
+      </div>
+      <div class="link-info">
+        <div class="link-title-row">
+          <a class="link-title" href="${escHtml(link.url)}" target="_blank" rel="noopener">${escHtml(link.title || link.url)}</a>
+          <span class="status-badge ${statusClass}">${escHtml(statusText)}</span>
+        </div>
+        <div class="link-url">${escHtml(link.url)}</div>
+        ${link.description ? `<div class="link-desc">${escHtml(link.description)}</div>` : ''}
+        <div class="link-meta">${checkedText}</div>
+      </div>
+      <div class="link-actions">
+        <button class="btn-icon btn-sm" title="Check link" onclick="checkLink('${link.id}')">⚡</button>
+        <button class="btn-icon btn-sm" title="Comment${hasComment ? ' (has notes)' : ''}" onclick="toggleComment('${link.id}')">${hasComment ? '💬' : '🗨️'}</button>
+        <button class="btn-icon btn-sm" title="Edit" onclick="openEditModal('${link.id}')">✏️</button>
+        <button class="btn-icon btn-sm" title="Move to…" onclick="openMoveModal('${link.id}')">↗️</button>
+        <button class="btn-icon btn-sm btn-danger" title="Delete" onclick="deleteLink('${link.id}')">🗑</button>
+      </div>
+    </div>
+    <div class="link-comment-row${hasComment ? ' open' : ''}" id="comment_${link.id}">
+      <div class="comment-label">Notes / Analysis</div>
+      <textarea class="comment-textarea" id="commentta_${link.id}" placeholder="Add notes about this source — data quality, scraping challenges, contact, frequency…">${escHtml(link.comment || '')}</textarea>
+      <button class="comment-save-btn" onclick="saveComment('${link.id}')">Save note</button>
+    </div>
+  `;
+  return card;
+}
+
+function escHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── LINK ACTIONS ─────────────────────────────────────────────────────────────
+async function addLink(sectionId, subId) {
+  const urlEl = document.getElementById('newurl_' + subId);
+  const titleEl = document.getElementById('newtitle_' + subId);
+  const descEl = document.getElementById('newdesc_' + subId);
+  const url = urlEl.value.trim();
+  if (!url) { urlEl.focus(); return; }
+  const r = await fetch(`/api/sections/${sectionId}/subsections/${subId}/links`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url, title: titleEl.value.trim() || url, description: descEl.value.trim() })
+  });
+  const link = await r.json();
+  const sec = data.sections.find(s => s.id === sectionId);
+  const sub = sec.subsections.find(s => s.id === subId);
+  sub.links.push(link);
+  urlEl.value = ''; titleEl.value = ''; descEl.value = '';
+  renderSection(sectionId);
+}
+
+async function deleteLink(linkId) {
+  if (!confirm('Delete this link?')) return;
+  await fetch('/api/links/' + linkId, { method: 'DELETE' });
+  for (const sec of data.sections)
+    for (const sub of sec.subsections) {
+      const i = sub.links.findIndex(l => l.id === linkId);
+      if (i !== -1) { sub.links.splice(i, 1); break; }
+    }
+  renderSection(currentSectionId);
+}
+
+async function checkLink(linkId) {
+  const badge = document.querySelector(`#card_${linkId} .status-badge`);
+  if (badge) { badge.innerHTML = '<span class="spinner"></span>'; badge.className = 'status-badge status-unknown'; }
+  const r = await fetch('/api/links/' + linkId + '/check', { method: 'POST' });
+  const result = await r.json();
+  for (const sec of data.sections)
+    for (const sub of sec.subsections) {
+      const link = sub.links.find(l => l.id === linkId);
+      if (link) { link.status = result.status; link.lastChecked = result.lastChecked; break; }
+    }
+  renderSection(currentSectionId);
+}
+
+async function checkAllSection(sectionId) {
+  const btn = document.querySelector('.check-all-btn');
+  if (btn) { btn.textContent = '⏳ Checking…'; btn.disabled = true; }
+  const r = await fetch('/api/sections/' + sectionId + '/checkall', { method: 'POST' });
+  const results = await r.json();
+  const sec = data.sections.find(s => s.id === sectionId);
+  for (const res of results)
+    for (const sub of sec.subsections) {
+      const link = sub.links.find(l => l.id === res.id);
+      if (link) { link.status = res.status; link.lastChecked = new Date().toISOString(); }
+    }
+  renderSection(sectionId);
+}
+
+async function reorderLink(secId, subId, linkId, dir) {
+  const sec = data.sections.find(s => s.id === secId);
+  const sub = sec.subsections.find(s => s.id === subId);
+  const idx = sub.links.findIndex(l => l.id === linkId);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= sub.links.length) return;
+  const [link] = sub.links.splice(idx, 1);
+  sub.links.splice(newIdx, 0, link);
+  await save();
+  renderSection(secId);
+}
+
+function toggleComment(linkId) {
+  document.getElementById('comment_' + linkId).classList.toggle('open');
+}
+
+async function saveComment(linkId) {
+  const text = document.getElementById('commentta_' + linkId).value;
+  await fetch('/api/links/' + linkId, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ comment: text })
+  });
+  for (const sec of data.sections)
+    for (const sub of sec.subsections) {
+      const link = sub.links.find(l => l.id === linkId);
+      if (link) { link.comment = text; break; }
+    }
+  renderSection(currentSectionId);
+}
+
+// ── EDIT MODAL ───────────────────────────────────────────────────────────────
+function openEditModal(linkId) {
+  editingLinkId = linkId;
+  for (const sec of data.sections)
+    for (const sub of sec.subsections) {
+      const link = sub.links.find(l => l.id === linkId);
+      if (link) {
+        document.getElementById('edit-url').value = link.url;
+        document.getElementById('edit-title').value = link.title;
+        document.getElementById('edit-desc').value = link.description || '';
+        break;
+      }
+    }
+  document.getElementById('edit-modal-overlay').classList.add('open');
+}
+function closeEditModal() {
+  document.getElementById('edit-modal-overlay').classList.remove('open');
+  editingLinkId = null;
+}
+async function confirmEdit() {
+  const url = document.getElementById('edit-url').value.trim();
+  const title = document.getElementById('edit-title').value.trim();
+  const description = document.getElementById('edit-desc').value.trim();
+  if (!url) return;
+  await fetch('/api/links/' + editingLinkId, {
+    method: 'PUT', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url, title: title || url, description })
+  });
+  for (const sec of data.sections)
+    for (const sub of sec.subsections) {
+      const link = sub.links.find(l => l.id === editingLinkId);
+      if (link) { link.url = url; link.title = title || url; link.description = description; break; }
+    }
+  closeEditModal();
+  renderSection(currentSectionId);
+}
+document.getElementById('edit-modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
+
+// ── MOVE MODAL ───────────────────────────────────────────────────────────────
+function openMoveModal(linkId) {
+  movingLinkId = linkId;
+  const secSel = document.getElementById('move-section-sel');
+  secSel.innerHTML = '';
+  for (const sec of data.sections) {
+    const opt = document.createElement('option');
+    opt.value = sec.id; opt.textContent = sec.title;
+    secSel.appendChild(opt);
+  }
+  populateMoveSubSelect();
+  secSel.onchange = populateMoveSubSelect;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function populateMoveSubSelect() {
+  const secId = document.getElementById('move-section-sel').value;
+  const sec = data.sections.find(s => s.id === secId);
+  const subSel = document.getElementById('move-sub-sel');
+  subSel.innerHTML = '';
+  for (const sub of sec.subsections) {
+    const opt = document.createElement('option');
+    opt.value = sub.id; opt.textContent = sub.title;
+    subSel.appendChild(opt);
+  }
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); movingLinkId = null; }
+async function confirmMove() {
+  const targetSectionId = document.getElementById('move-section-sel').value;
+  const targetSubId = document.getElementById('move-sub-sel').value;
+  await fetch('/api/links/' + movingLinkId + '/move', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ targetSectionId, targetSubId })
+  });
+  await load();
+  closeModal();
+  renderSection(currentSectionId);
+}
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+// ── SECTION / SUBSECTION MANAGEMENT ──────────────────────────────────────────
+async function renameSection(sectionId) {
+  const sec = data.sections.find(s => s.id === sectionId);
+  const title = prompt('New name for section:', sec.title);
+  if (!title || title === sec.title) return;
+  await fetch('/api/sections/' + sectionId, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title }) });
+  sec.title = title;
+  renderSidebar();
+  renderSection(sectionId);
+}
+async function deleteSection(sectionId) {
+  const sec = data.sections.find(s => s.id === sectionId);
+  const totalLinks = sec.subsections.reduce((n, s) => n + s.links.length, 0);
+  if (!confirm(`Delete section "${sec.title}" with all its subsections and ${totalLinks} link(s)?`)) return;
+  await fetch('/api/sections/' + sectionId, { method: 'DELETE' });
+  data.sections = data.sections.filter(s => s.id !== sectionId);
+  currentSectionId = null;
+  renderSidebar();
+  renderHome();
+  showView('home');
+}
+async function addSubsection(sectionId) {
+  const title = prompt('Subsection name:');
+  if (!title) return;
+  const r = await fetch(`/api/sections/${sectionId}/subsections`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title }) });
+  const sub = await r.json();
+  const sec = data.sections.find(s => s.id === sectionId);
+  sec.subsections.push(sub);
+  renderSection(sectionId);
+  renderSidebar();
+}
+async function renameSubsection(sectionId, subId) {
+  const sec = data.sections.find(s => s.id === sectionId);
+  const sub = sec.subsections.find(s => s.id === subId);
+  const title = prompt('New subsection name:', sub.title);
+  if (!title || title === sub.title) return;
+  await fetch(`/api/sections/${sectionId}/subsections/${subId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title }) });
+  sub.title = title;
+  renderSection(sectionId);
+  renderSidebar();
+}
+async function deleteSubsection(sectionId, subId) {
+  const sec = data.sections.find(s => s.id === sectionId);
+  const sub = sec.subsections.find(s => s.id === subId);
+  if (!confirm(`Delete subsection "${sub.title}" with all its ${sub.links.length} link(s)?`)) return;
+  await fetch(`/api/sections/${sectionId}/subsections/${subId}`, { method: 'DELETE' });
+  sec.subsections = sec.subsections.filter(s => s.id !== subId);
+  renderSection(sectionId);
+  renderSidebar();
+}
+
+// ── SEARCH ───────────────────────────────────────────────────────────────────
+let searchTimer = null;
+document.getElementById('search-box').addEventListener('input', function() {
+  clearTimeout(searchTimer);
+  const q = this.value.trim().toLowerCase();
+  if (!q) { showView(currentSectionId ? 'section' : 'home'); return; }
+  searchTimer = setTimeout(() => doSearch(q), 200);
+});
+
+function doSearch(q) {
+  showView('search');
+  const el = document.getElementById('search-results');
+  el.innerHTML = `<h2 style="font-size:16px;font-weight:700;color:var(--accent);margin-bottom:12px">Search: "${q}"</h2>`;
+  let found = 0;
+  for (const sec of data.sections) {
+    for (const sub of sec.subsections) {
+      for (const link of sub.links) {
+        const hay = (link.url + ' ' + link.title + ' ' + link.description + ' ' + link.comment).toLowerCase();
+        if (!hay.includes(q)) continue;
+        found++;
+        const item = document.createElement('div');
+        item.className = 'search-result-item';
+        const statusClass = 'status-' + (link.status === 'ok' ? 'ok' : link.status === '404' ? '404' : link.status === 'error' ? 'error' : 'unknown');
+        item.innerHTML = `
+          <div class="search-result-path">${sec.title} › ${sub.title}</div>
+          <div class="link-title-row">
+            <a class="link-title" href="${escHtml(link.url)}" target="_blank" rel="noopener">${escHtml(link.title || link.url)}</a>
+            <span class="status-badge ${statusClass}">${escHtml(link.status === 'unknown' ? '?' : link.status)}</span>
+          </div>
+          <div class="link-url">${escHtml(link.url)}</div>
+          ${link.description ? `<div class="link-desc">${escHtml(link.description)}</div>` : ''}
+          ${link.comment ? `<div class="link-desc" style="color:#667;font-style:italic">📝 ${escHtml(link.comment.slice(0,120))}${link.comment.length > 120 ? '…' : ''}</div>` : ''}
+        `;
+        el.appendChild(item);
+      }
+    }
+  }
+  if (found === 0) el.innerHTML += '<p style="color:#889;font-style:italic">No links found.</p>';
+  else el.querySelector('h2').textContent += ` — ${found} result${found !== 1 ? 's' : ''}`;
+}
+
+// ── BOOT ─────────────────────────────────────────────────────────────────────
+load();
+</script>
+</body>
+</html>

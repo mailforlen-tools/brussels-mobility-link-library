@@ -1,0 +1,100 @@
+{
+  "sections": [
+    {
+      "id": "europe",
+      "title": "Europe",
+      "subsections": [
+        {
+          "id": "sub_europe_1",
+          "title": "EU Institutions",
+          "links": []
+        },
+        {
+          "id": "sub_europe_2",
+          "title": "EU Mobility & Transport",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "federal",
+      "title": "Federal",
+      "subsections": [
+        {
+          "id": "sub_federal_1",
+          "title": "Federal Mobility",
+          "links": []
+        },
+        {
+          "id": "sub_federal_2",
+          "title": "Statistics & Data",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "brussels",
+      "title": "Brussels",
+      "subsections": [
+        {
+          "id": "sub_bxl_1",
+          "title": "Brussels Mobility",
+          "links": [
+            {
+              "id": "link_demo_1",
+              "url": "https://mobilite-mobiliteit.brussels/",
+              "title": "Brussels Mobility Official",
+              "description": "Official Brussels Mobility portal",
+              "lastChecked": null,
+              "status": "unknown",
+              "comment": "",
+              "order": 0
+            }
+          ]
+        },
+        {
+          "id": "sub_bxl_2",
+          "title": "Open Data Brussels",
+          "links": []
+        },
+        {
+          "id": "sub_bxl_3",
+          "title": "STIB / MIVB",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "vlaanderen",
+      "title": "Vlaanderen",
+      "subsections": [
+        {
+          "id": "sub_vl_1",
+          "title": "Departement Mobiliteit",
+          "links": []
+        },
+        {
+          "id": "sub_vl_2",
+          "title": "Open Data Vlaanderen",
+          "links": []
+        }
+      ]
+    },
+    {
+      "id": "wallonia",
+      "title": "Wallonia",
+      "subsections": [
+        {
+          "id": "sub_wal_1",
+          "title": "SPW Mobilité",
+          "links": []
+        },
+        {
+          "id": "sub_wal_2",
+          "title": "Open Data Wallonie",
+          "links": []
+        }
+      ]
+    }
+  ]
+}
