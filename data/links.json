@@ -3,63 +3,539 @@
     {
       "id": "europe",
       "title": "Europe",
+      "title_nl": "Europa",
+      "title_fr": "Europe",
       "subsections": [
         {
           "id": "sub_europe_1",
           "title": "EU Institutions",
-          "links": []
+          "title_nl": "EU-instellingen",
+          "title_fr": "Institutions de l’UE",
+          "links": [
+            {
+              "id": "link_mutmc5ar0",
+              "url": "https://transport.ec.europa.eu/",
+              "title": "European Commission - DG MOVE",
+              "title_nl": "Europese Commissie – DG MOVE",
+              "title_fr": "Commission européenne – DG MOVE",
+              "description": "Mobility & Transport policy, road transport, ITS, news",
+              "description_nl": "Mobiliteits- en vervoersbeleid, wegvervoer, ITS, nieuws",
+              "description_fr": "Politique de mobilité et de transport, transport routier, STI, actualités",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:42.879Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1",
+              "url": "https://ec.europa.eu/eurostat/web/transport/overview",
+              "title": "Eurostat - Transport",
+              "title_nl": "Eurostat – Vervoer",
+              "title_fr": "Eurostat – Transport",
+              "description": "Official EU statistics: road freight, vehicle stock, accidents",
+              "description_nl": "Officiële EU-statistieken: wegvervoer van goederen, voertuigenpark, ongevallen",
+              "description_fr": "Statistiques officielles de l’UE : fret routier, parc de véhicules, accidents",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:42.958Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as2",
+              "url": "https://road-safety.transport.ec.europa.eu/",
+              "title": "EU Road Safety (CARE database)",
+              "title_nl": "EU-verkeersveiligheid (CARE-databank)",
+              "title_fr": "Sécurité routière UE (base CARE)",
+              "description": "Official EU road accident data and road safety observatory",
+              "description_nl": "Officiële EU-ongevallendata en waarnemingscentrum voor verkeersveiligheid",
+              "description_fr": "Données officielles de l’UE sur les accidents et observatoire de la sécurité routière",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:42.981Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5as3",
+              "url": "https://joint-research-centre.ec.europa.eu/",
+              "title": "JRC - Transport",
+              "title_nl": "Gemeenschappelijk Centrum voor onderzoek (JRC)",
+              "title_fr": "Centre commun de recherche (JRC)",
+              "description": "EU Joint Research Centre transport research",
+              "description_nl": "EU-onderzoek, onder meer over vervoer",
+              "description_fr": "Recherche de l’UE, dont les transports",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.104Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            },
+            {
+              "id": "link_mutmc5as4",
+              "url": "https://www.eea.europa.eu/en/topics/in-depth/transport-and-mobility",
+              "title": "EEA - Transport & mobility",
+              "title_nl": "EEA – Vervoer en mobiliteit",
+              "title_fr": "AEE – Transport et mobilité",
+              "description": "Environment agency: road transport emissions and indicators",
+              "description_nl": "Europees Milieuagentschap: uitstoot en indicatoren van het wegvervoer",
+              "description_fr": "Agence européenne pour l’environnement : émissions et indicateurs du transport routier",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.465Z",
+              "status": "ok",
+              "comment": "",
+              "order": 4
+            },
+            {
+              "id": "link_mutmc5as5",
+              "url": "https://data.europa.eu/en",
+              "title": "data.europa.eu",
+              "description": "Official EU open data portal",
+              "description_nl": "Officieel open-dataportaal van de EU",
+              "description_fr": "Portail officiel de données ouvertes de l’UE",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.234Z",
+              "status": "ok",
+              "comment": "",
+              "order": 5
+            },
+            {
+              "id": "link_mutmc5as6",
+              "url": "https://alternative-fuels-observatory.ec.europa.eu/",
+              "title": "European Alternative Fuels Observatory",
+              "title_nl": "Europees waarnemingscentrum voor alternatieve brandstoffen",
+              "title_fr": "Observatoire européen des carburants alternatifs",
+              "description": "Charging points and alternative-fuel vehicle statistics",
+              "description_nl": "Laadpunten en statistieken over voertuigen met alternatieve brandstoffen",
+              "description_fr": "Bornes de recharge et statistiques des véhicules à carburants alternatifs",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.393Z",
+              "status": "ok",
+              "comment": "",
+              "order": 6
+            },
+            {
+              "id": "link_mutmc5as7",
+              "url": "https://eur-lex.europa.eu/",
+              "title": "EUR-Lex",
+              "description": "EU legislation (type approval, tachograph, ITS, road charging)",
+              "description_nl": "EU-wetgeving (typegoedkeuring, tachograaf, ITS, wegentol)",
+              "description_fr": "Législation de l’UE (réception par type, tachygraphe, STI, tarification routière)",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.509Z",
+              "status": "ok",
+              "comment": "",
+              "order": 7
+            }
+          ]
         },
         {
           "id": "sub_europe_2",
           "title": "EU Mobility & Transport",
-          "links": []
+          "title_nl": "EU-mobiliteit en vervoer",
+          "title_fr": "Mobilité et transport dans l’UE",
+          "links": [
+            {
+              "id": "link_mutmc5as8",
+              "url": "https://napcore.eu/",
+              "title": "NAPCORE",
+              "description": "Coordination of National Access Points for mobility data",
+              "description_nl": "Coördinatie van de nationale toegangspunten voor mobiliteitsdata",
+              "description_fr": "Coordination des points d’accès nationaux aux données de mobilité",
+              "verified": false,
+              "feed": "https://napcore.eu/feed/",
+              "lastChecked": "2026-10-04T09:28:45.921Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as9",
+              "url": "https://www.cedr.eu/",
+              "title": "CEDR",
+              "description": "Conference of European Directors of Roads",
+              "description_nl": "Conferentie van Europese wegendirecteurs",
+              "description_fr": "Conférence européenne des directeurs des routes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.657Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5asa",
+              "url": "https://www.piarc.org/en/",
+              "title": "PIARC",
+              "title_nl": "PIARC",
+              "title_fr": "AIPCR (PIARC)",
+              "description": "World Road Association: studies and technical reports",
+              "description_nl": "Wereldwegenvereniging: studies en technische rapporten",
+              "description_fr": "Association mondiale de la Route : études et rapports techniques",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.745Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5asb",
+              "url": "https://www.itf-oecd.org/",
+              "title": "ITF / OECD",
+              "title_nl": "ITF / OESO",
+              "title_fr": "FIT / OCDE",
+              "description": "International Transport Forum: freight and road studies",
+              "description_nl": "Internationaal Vervoersforum: studies over goederen- en wegvervoer",
+              "description_fr": "Forum international des transports : études sur le fret et la route",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:43.731Z",
+              "status": "403",
+              "comment": "",
+              "order": 3
+            },
+            {
+              "id": "link_mutmc5asc",
+              "url": "https://unece.org/transport/road-transport",
+              "title": "UNECE - Road transport",
+              "title_nl": "UNECE – Wegvervoer",
+              "title_fr": "CEE-ONU – Transport routier",
+              "description": "Inland transport committee, WP.29 vehicle regulations",
+              "description_nl": "Comité voor binnenlands vervoer, voertuigreglementen WP.29",
+              "description_fr": "Comité des transports intérieurs, règlements véhicules WP.29",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:46.023Z",
+              "status": "403",
+              "comment": "",
+              "order": 4
+            },
+            {
+              "id": "link_mutmc5asd",
+              "url": "https://www.ertico.com/",
+              "title": "ERTICO",
+              "description": "ITS Europe: public-private partnership on intelligent transport",
+              "description_nl": "ITS Europe: publiek-private samenwerking voor intelligent vervoer",
+              "description_fr": "STI Europe : partenariat public-privé pour les transports intelligents",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:46.040Z",
+              "status": "ok",
+              "comment": "",
+              "order": 5
+            },
+            {
+              "id": "link_mutmc5ase",
+              "url": "https://www.fehrl.org/",
+              "title": "FEHRL",
+              "description": "Forum of European national highway research laboratories",
+              "description_nl": "Forum van Europese nationale wegenonderzoekslaboratoria",
+              "description_fr": "Forum des laboratoires nationaux européens de recherche routière",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:46.476Z",
+              "status": "ok",
+              "comment": "",
+              "order": 6
+            },
+            {
+              "id": "link_mutmc5asf",
+              "url": "https://www.eltis.org/",
+              "title": "ELTIS",
+              "description": "EU urban mobility observatory",
+              "description_nl": "Europees waarnemingscentrum voor stedelijke mobiliteit",
+              "description_fr": "Observatoire européen de la mobilité urbaine",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:46.385Z",
+              "status": "ok",
+              "comment": "",
+              "order": 7
+            }
+          ]
+        },
+        {
+          "id": "sub_europe_3",
+          "title": "European organisations (road mobility)",
+          "title_nl": "Europese organisaties (wegmobiliteit)",
+          "title_fr": "Organisations européennes (mobilité routière)",
+          "links": [
+            {
+              "id": "link_mutmc5asg",
+              "url": "https://www.etsc.eu/",
+              "title": "ETSC",
+              "description": "European Transport Safety Council: road safety research & advocacy",
+              "description_nl": "Europese Raad voor Vervoersveiligheid: onderzoek en belangenbehartiging voor verkeersveiligheid",
+              "description_fr": "Conseil européen de la sécurité des transports : recherche et plaidoyer en sécurité routière",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:48.646Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5ash",
+              "url": "https://www.transportenvironment.org/",
+              "title": "Transport & Environment",
+              "description": "European clean transport campaign group (cars, trucks)",
+              "description_nl": "Europese organisatie voor schoon vervoer (auto’s, vrachtwagens)",
+              "description_fr": "Organisation européenne pour des transports propres (voitures, camions)",
+              "verified": false,
+              "feed": "https://www.transportenvironment.org/articles/rss",
+              "lastChecked": "2026-10-04T09:28:46.788Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5asi",
+              "url": "https://theicct.org/",
+              "title": "ICCT",
+              "description": "International Council on Clean Transportation: vehicle emissions studies",
+              "description_nl": "Internationale raad voor schoon vervoer: studies over voertuiguitstoot",
+              "description_fr": "Conseil international pour un transport propre : études sur les émissions des véhicules",
+              "verified": false,
+              "feed": "https://theicct.org/feed/",
+              "lastChecked": "2026-10-04T09:28:46.830Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5asj",
+              "url": "https://www.fiaregion1.com/",
+              "title": "FIA Region I",
+              "title_nl": "FIA Regio I",
+              "title_fr": "FIA Région I",
+              "description": "Motorists federation Europe",
+              "description_nl": "Federatie van automobilisten in Europa",
+              "description_fr": "Fédération des automobilistes en Europe",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:46.963Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            },
+            {
+              "id": "link_mutmc5ask",
+              "url": "https://www.euroncap.com/",
+              "title": "Euro NCAP",
+              "description": "Vehicle safety ratings",
+              "description_nl": "Veiligheidsbeoordeling van voertuigen",
+              "description_fr": "Évaluation de la sécurité des véhicules",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:48.990Z",
+              "status": "ok",
+              "comment": "",
+              "order": 4
+            },
+            {
+              "id": "link_mutmc5asl",
+              "url": "https://www.polisnetwork.eu/",
+              "title": "POLIS",
+              "description": "Cities and regions network for transport innovation",
+              "description_nl": "Netwerk van steden en regio’s voor vervoersinnovatie",
+              "description_fr": "Réseau de villes et régions pour l’innovation en transport",
+              "verified": false,
+              "feed": "https://www.polisnetwork.eu/feed/",
+              "lastChecked": "2026-10-04T09:28:48.856Z",
+              "status": "ok",
+              "comment": "",
+              "order": 5
+            },
+            {
+              "id": "link_mutmc5asm",
+              "url": "https://www.eurocities.eu/topics/mobility/",
+              "title": "Eurocities - Mobility",
+              "title_nl": "Eurocities – Mobiliteit",
+              "title_fr": "Eurocities – Mobilité",
+              "description": "City-level mobility policy",
+              "description_nl": "Mobiliteitsbeleid op stadsniveau",
+              "description_fr": "Politique de mobilité à l’échelle des villes",
+              "verified": false,
+              "feed": "https://eurocities.eu/feed/",
+              "lastChecked": "2026-10-04T09:28:49.889Z",
+              "status": "ok",
+              "comment": "",
+              "order": 6
+            }
+          ]
         }
       ]
     },
     {
       "id": "federal",
       "title": "Federal",
+      "title_nl": "Federaal",
+      "title_fr": "Fédéral",
       "subsections": [
         {
           "id": "sub_federal_1",
           "title": "Federal Mobility",
-          "links": []
-        },
-        {
-          "id": "sub_federal_2",
-          "title": "Statistics & Data",
-          "links": []
-        }
-      ]
-    },
-    {
-      "id": "brussels",
-      "title": "Brussels",
-      "subsections": [
-        {
-          "id": "sub_bxl_1",
-          "title": "Brussels Mobility",
+          "title_nl": "Federale mobiliteit",
+          "title_fr": "Mobilité fédérale",
           "links": [
             {
-              "id": "link_demo_1",
-              "url": "https://mobilite-mobiliteit.brussels/",
-              "title": "Brussels Mobility Official",
-              "description": "Official Brussels Mobility portal",
-              "lastChecked": null,
-              "status": "unknown",
+              "id": "link_mutmc5as1i",
+              "url": "https://mobilit.belgium.be/en",
+              "title": "FPS Mobility and Transport",
+              "title_nl": "FOD Mobiliteit en Vervoer",
+              "title_fr": "SPF Mobilité et Transports",
+              "description": "Federal ministry: road transport, vehicles, road safety",
+              "description_nl": "Federaal ministerie: wegvervoer, voertuigen, verkeersveiligheid",
+              "description_fr": "Ministère fédéral : transport routier, véhicules, sécurité routière",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:50.034Z",
+              "status": "ok",
               "comment": "",
               "order": 0
             }
           ]
         },
         {
+          "id": "sub_federal_2",
+          "title": "Statistics & Data",
+          "title_nl": "Statistieken en data",
+          "title_fr": "Statistiques et données",
+          "links": [
+            {
+              "id": "link_mutmc5as1k",
+              "url": "https://statbel.fgov.be/en/themes/mobility",
+              "title": "Statbel - Mobility",
+              "title_nl": "Statbel – Mobiliteit",
+              "title_fr": "Statbel – Mobilité",
+              "description": "Belgian vehicle fleet, traffic, accidents statistics",
+              "description_nl": "Belgische statistieken: voertuigenpark, verkeer, ongevallen",
+              "description_fr": "Statistiques belges : parc de véhicules, trafic, accidents",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:50.212Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1l",
+              "url": "https://data.gov.be/en",
+              "title": "data.gov.be",
+              "description": "Belgian federal open data portal",
+              "description_nl": "Belgisch federaal open-dataportaal",
+              "description_fr": "Portail belge fédéral de données ouvertes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:50.257Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "brussels",
+      "title": "Brussels",
+      "title_nl": "Brussel",
+      "title_fr": "Bruxelles",
+      "subsections": [
+        {
+          "id": "sub_bxl_1",
+          "title": "Brussels Mobility",
+          "title_nl": "Brussel Mobiliteit",
+          "title_fr": "Bruxelles Mobilité",
+          "links": [
+            {
+              "id": "link_demo_1",
+              "url": "https://mobilite-mobiliteit.brussels/",
+              "title": "Brussels Mobility Official",
+              "title_nl": "Brussel Mobiliteit – officiële site",
+              "title_fr": "Bruxelles Mobilité – site officiel",
+              "description": "Official Brussels Mobility portal",
+              "description_nl": "Officieel portaal van Brussel Mobiliteit",
+              "description_fr": "Portail officiel de Bruxelles Mobilité",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:50.620Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1m",
+              "url": "https://mobilitytwin.brussels/",
+              "title": "MobilityTwin.Brussels",
+              "description": "Live and historical mobility open data",
+              "description_nl": "Live en historische open mobiliteitsdata",
+              "description_fr": "Données ouvertes de mobilité, en direct et historiques",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.439Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as1n",
+              "url": "https://lez.brussels/",
+              "title": "LEZ Brussels",
+              "title_nl": "LEZ Brussel",
+              "title_fr": "LEZ Bruxelles",
+              "description": "Low emission zone",
+              "description_nl": "Lage-emissiezone",
+              "description_fr": "Zone de basses émissions",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:50.537Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5as1o",
+              "url": "https://perspective.brussels/en",
+              "title": "perspective.brussels",
+              "description": "Territorial planning and statistics",
+              "description_nl": "Ruimtelijke planning en statistieken",
+              "description_fr": "Planification territoriale et statistiques",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:50.467Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            }
+          ]
+        },
+        {
           "id": "sub_bxl_2",
           "title": "Open Data Brussels",
-          "links": []
+          "title_nl": "Open data Brussel",
+          "title_fr": "Données ouvertes Bruxelles",
+          "links": [
+            {
+              "id": "link_mutmc5as1p",
+              "url": "https://opendata.brussels.be/",
+              "title": "Open Data Brussels",
+              "title_nl": "Open data Brussel",
+              "title_fr": "Open Data Bruxelles",
+              "description": "Regional open data portal",
+              "description_nl": "Gewestelijk open-dataportaal",
+              "description_fr": "Portail régional de données ouvertes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.738Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1q",
+              "url": "https://datastore.brussels/",
+              "title": "Datastore Brussels",
+              "description": "Regional geodata",
+              "description_nl": "Gewestelijke geodata",
+              "description_fr": "Données géographiques régionales",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.574Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            }
+          ]
         },
         {
           "id": "sub_bxl_3",
           "title": "STIB / MIVB",
+          "title_nl": "MIVB / STIB",
+          "title_fr": "STIB / MIVB",
           "links": []
         }
       ]
@@ -67,32 +543,673 @@
     {
       "id": "vlaanderen",
       "title": "Vlaanderen",
+      "title_nl": "Vlaanderen",
+      "title_fr": "Flandre",
       "subsections": [
         {
           "id": "sub_vl_1",
           "title": "Departement Mobiliteit",
-          "links": []
+          "title_nl": "Departement Mobiliteit",
+          "title_fr": "Département Mobilité (Flandre)",
+          "links": [
+            {
+              "id": "link_mutmc5as1r",
+              "url": "https://www.vlaanderen.be/departement-mobiliteit-en-openbare-werken",
+              "title": "Departement MOW",
+              "title_nl": "Departement MOW",
+              "title_fr": "Département MOW",
+              "description": "Flemish department for mobility and public works",
+              "description_nl": "Vlaams departement Mobiliteit en Openbare Werken",
+              "description_fr": "Département flamand de la mobilité et des travaux publics",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.600Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1s",
+              "url": "https://wegenenverkeer.be/",
+              "title": "Agentschap Wegen en Verkeer",
+              "title_nl": "Agentschap Wegen en Verkeer",
+              "title_fr": "Agence des routes et de la circulation (Flandre)",
+              "description": "Flemish road agency",
+              "description_nl": "Vlaams wegenagentschap",
+              "description_fr": "Agence routière flamande",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.844Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as1t",
+              "url": "https://www.verkeerscentrum.be/",
+              "title": "Verkeerscentrum Vlaanderen",
+              "title_nl": "Verkeerscentrum Vlaanderen",
+              "title_fr": "Centre de trafic flamand",
+              "description": "Real-time traffic info",
+              "description_nl": "Verkeersinformatie in real time",
+              "description_fr": "Informations routières en temps réel",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.957Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5as1u",
+              "url": "https://www.vlaamsewaterweg.be/",
+              "title": "De Vlaamse Waterweg",
+              "title_nl": "De Vlaamse Waterweg",
+              "title_fr": "Voie navigable flamande",
+              "description": "Inland waterways (logistics)",
+              "description_nl": "Binnenwateren (logistiek)",
+              "description_fr": "Voies navigables intérieures (logistique)",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:52.158Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            }
+          ]
         },
         {
           "id": "sub_vl_2",
           "title": "Open Data Vlaanderen",
-          "links": []
+          "title_nl": "Open data Vlaanderen",
+          "title_fr": "Données ouvertes Flandre",
+          "links": [
+            {
+              "id": "link_mutmc5as1v",
+              "url": "https://opendata.vlaanderen.be/",
+              "title": "Open Data Vlaanderen",
+              "title_nl": "Open data Vlaanderen",
+              "title_fr": "Open Data Flandre",
+              "description": "Flemish open data portal",
+              "description_nl": "Vlaams open-dataportaal",
+              "description_fr": "Portail flamand de données ouvertes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:52.641Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1w",
+              "url": "https://www.vlaanderen.be/statistiek-vlaanderen",
+              "title": "Statistiek Vlaanderen",
+              "title_nl": "Statistiek Vlaanderen",
+              "title_fr": "Statistiques Flandre",
+              "description": "Flemish statistics",
+              "description_nl": "Vlaamse statistieken",
+              "description_fr": "Statistiques flamandes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:51.895Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            }
+          ]
         }
       ]
     },
     {
       "id": "wallonia",
       "title": "Wallonia",
+      "title_nl": "Wallonië",
+      "title_fr": "Wallonie",
       "subsections": [
         {
           "id": "sub_wal_1",
           "title": "SPW Mobilité",
-          "links": []
+          "title_nl": "SPW Mobilité (Wallonië)",
+          "title_fr": "SPW Mobilité (Wallonie)",
+          "links": [
+            {
+              "id": "link_mutmc5as1x",
+              "url": "https://infrastructures.wallonie.be/",
+              "title": "SPW Mobilité et Infrastructures",
+              "title_nl": "SPW Mobilité et Infrastructures",
+              "title_fr": "SPW Mobilité et Infrastructures",
+              "description": "Walloon roads and mobility administration",
+              "description_nl": "Waalse administratie voor wegen en mobiliteit",
+              "description_fr": "Administration wallonne des routes et de la mobilité",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:53.007Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1y",
+              "url": "https://trafiroutes.wallonie.be/",
+              "title": "Trafiroutes",
+              "description": "Walloon road traffic information",
+              "description_nl": "Verkeersinformatie voor Wallonië",
+              "description_fr": "Informations sur le trafic routier en Wallonie",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:52.725Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as1z",
+              "url": "https://www.awsr.be/",
+              "title": "AWSR",
+              "description": "Walloon road safety agency",
+              "description_nl": "Waals agentschap voor verkeersveiligheid",
+              "description_fr": "Agence wallonne pour la Sécurité routière",
+              "verified": false,
+              "feed": "https://www.awsr.be/feed/",
+              "lastChecked": "2026-10-04T09:28:52.965Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5as20",
+              "url": "https://www.logisticsinwallonia.be/",
+              "title": "Logistics in Wallonia",
+              "description": "Walloon logistics cluster",
+              "description_nl": "Waalse logistieke cluster",
+              "description_fr": "Pôle logistique wallon",
+              "verified": false,
+              "feed": "https://www.logisticsinwallonia.be/feed/",
+              "lastChecked": "2026-10-04T09:28:53.463Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            }
+          ]
         },
         {
           "id": "sub_wal_2",
           "title": "Open Data Wallonie",
-          "links": []
+          "title_nl": "Open data Wallonië",
+          "title_fr": "Données ouvertes Wallonie",
+          "links": [
+            {
+              "id": "link_mutmc5as21",
+              "url": "https://www.odwb.be/",
+              "title": "Open Data Wallonie-Bruxelles",
+              "title_nl": "Open Data Wallonie-Bruxelles",
+              "title_fr": "Open Data Wallonie-Bruxelles",
+              "description": "Walloon open data portal",
+              "description_nl": "Waals open-dataportaal",
+              "description_fr": "Portail wallon de données ouvertes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:53.746Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as22",
+              "url": "https://www.iweps.be/",
+              "title": "IWEPS",
+              "description": "Walloon statistics institute",
+              "description_nl": "Waals instituut voor evaluatie, toekomstverkenning en statistiek",
+              "description_fr": "Institut wallon de l’évaluation, de la prospective et de la statistique",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:53.636Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "industry",
+      "title": "Industry & Professional",
+      "title_nl": "Sector en beroepsorganisaties",
+      "title_fr": "Industrie et organisations professionnelles",
+      "subsections": [
+        {
+          "id": "sub_ind_1",
+          "title": "European sector organisations",
+          "title_nl": "Europese sectororganisaties",
+          "title_fr": "Organisations sectorielles européennes",
+          "links": [
+            {
+              "id": "link_mutmc5aso",
+              "url": "https://www.acea.auto/",
+              "title": "ACEA",
+              "description": "European automobile manufacturers: registrations, production, data",
+              "description_nl": "Europese autofabrikanten: inschrijvingen, productie, data",
+              "description_fr": "Constructeurs automobiles européens : immatriculations, production, données",
+              "verified": false,
+              "feed": "https://www.acea.auto/feed/",
+              "lastChecked": "2026-10-04T09:28:53.679Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5asp",
+              "url": "https://www.clepa.eu/",
+              "title": "CLEPA",
+              "description": "European automotive suppliers",
+              "description_nl": "Europese autoleveranciers",
+              "description_fr": "Équipementiers automobiles européens",
+              "verified": false,
+              "feed": "https://www.clepa.eu/feed/",
+              "lastChecked": "2026-10-04T09:28:53.675Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5asq",
+              "url": "https://www.etrma.org/",
+              "title": "ETRMA",
+              "description": "European tyre and rubber manufacturers",
+              "description_nl": "Europese banden- en rubberfabrikanten",
+              "description_fr": "Fabricants européens de pneus et de caoutchouc",
+              "verified": false,
+              "feed": "https://tyreseurope.org/feed/",
+              "lastChecked": "2026-10-04T09:28:55.090Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5asr",
+              "url": "https://www.iru.org/",
+              "title": "IRU",
+              "description": "International Road Transport Union",
+              "description_nl": "Internationale Unie voor Wegvervoer",
+              "description_fr": "Union internationale des transports routiers",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:53.948Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            },
+            {
+              "id": "link_mutmc5ass",
+              "url": "https://erf.be/",
+              "title": "ERF",
+              "description": "European Union Road Federation",
+              "description_nl": "Europese Wegenfederatie (ERF)",
+              "description_fr": "Fédération européenne de la route (ERF)",
+              "verified": false,
+              "feed": "https://erf.be/feed/",
+              "lastChecked": "2026-10-04T09:28:53.947Z",
+              "status": "ok",
+              "comment": "",
+              "order": 4
+            },
+            {
+              "id": "link_mutmc5ast",
+              "url": "https://www.clecat.org/",
+              "title": "CLECAT",
+              "description": "European freight forwarders and logistics",
+              "description_nl": "Europese expediteurs en logistiek",
+              "description_fr": "Commissionnaires de transport et logistique en Europe",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:54.376Z",
+              "status": "ok",
+              "comment": "",
+              "order": 5
+            },
+            {
+              "id": "link_mutmc5asu",
+              "url": "https://www.asecap.com/",
+              "title": "ASECAP",
+              "description": "European toll road operators",
+              "description_nl": "Europese exploitanten van tolwegen",
+              "description_fr": "Exploitants européens d’autoroutes à péage",
+              "verified": false,
+              "feed": "https://www.asecap.com/?format=feed&amp;type=rss",
+              "lastChecked": "2026-10-04T09:28:55.833Z",
+              "status": "ok",
+              "comment": "",
+              "order": 6
+            },
+            {
+              "id": "link_mutmc5asv",
+              "url": "https://www.ecgassociation.eu/",
+              "title": "ECG",
+              "description": "Association of European vehicle logistics",
+              "description_nl": "Europese vereniging voor voertuiglogistiek",
+              "description_fr": "Association européenne de la logistique des véhicules",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:55.142Z",
+              "status": "ok",
+              "comment": "",
+              "order": 7
+            },
+            {
+              "id": "link_mutmc5asw",
+              "url": "https://www.eucar.be/",
+              "title": "EUCAR",
+              "description": "European Council for Automotive R&D",
+              "description_nl": "Europese raad voor O&O in de auto-industrie",
+              "description_fr": "Conseil européen pour la R&D automobile",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:55.382Z",
+              "status": "ok",
+              "comment": "",
+              "order": 8
+            },
+            {
+              "id": "link_mutmc5asx",
+              "url": "https://www.etf-europe.org/",
+              "title": "ETF",
+              "description": "European Transport Workers Federation (road section)",
+              "description_nl": "Europese Federatie van Vervoersarbeiders (sectie wegvervoer)",
+              "description_fr": "Fédération européenne des travailleurs des transports (section routière)",
+              "verified": false,
+              "feed": "https://www.etf-europe.org/rss.xml",
+              "lastChecked": "2026-10-04T09:28:55.603Z",
+              "status": "ok",
+              "comment": "",
+              "order": 9
+            },
+            {
+              "id": "link_mutmc5asy",
+              "url": "https://www.fiata.org/",
+              "title": "FIATA",
+              "description": "International federation of freight forwarders",
+              "description_nl": "Internationale federatie van expediteursorganisaties",
+              "description_fr": "Fédération internationale des associations de transitaires",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:56.361Z",
+              "status": "ok",
+              "comment": "",
+              "order": 10
+            }
+          ]
+        },
+        {
+          "id": "sub_ind_2",
+          "title": "Belgian sector organisations",
+          "title_nl": "Belgische sectororganisaties",
+          "title_fr": "Organisations sectorielles belges",
+          "links": [
+            {
+              "id": "link_mutmc5asz",
+              "url": "https://www.febiac.be/",
+              "title": "FEBIAC",
+              "description": "Belgian automobile and cycle federation: registrations & statistics",
+              "description_nl": "Belgische federatie van de auto- en fietsindustrie: inschrijvingen en statistieken",
+              "description_fr": "Fédération belge de l’automobile et du cycle : immatriculations et statistiques",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:56.521Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as10",
+              "url": "https://www.traxio.be/",
+              "title": "Traxio",
+              "description": "Belgian mobility sector federation (automotive trade)",
+              "description_nl": "Belgische federatie van de mobiliteitssector (autohandel)",
+              "description_fr": "Fédération belge du secteur de la mobilité (commerce automobile)",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:56.196Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as11",
+              "url": "https://www.febetra.be/",
+              "title": "FEBETRA",
+              "description": "Belgian road transport and logistics federation",
+              "description_nl": "Belgische federatie van wegtransporteurs en logistiek",
+              "description_fr": "Fédération belge des transporteurs routiers et de la logistique",
+              "verified": false,
+              "feed": "https://febetra.be/feed/",
+              "lastChecked": "2026-10-04T09:28:58.082Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5as12",
+              "url": "https://www.tlv.be/",
+              "title": "Transport en Logistiek Vlaanderen",
+              "title_fr": "Transport en Logistiek Vlaanderen",
+              "description": "Flemish transport and logistics federation",
+              "description_nl": "Vlaamse federatie voor transport en logistiek",
+              "description_fr": "Fédération flamande du transport et de la logistique",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:58.253Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            },
+            {
+              "id": "link_mutmc5as13",
+              "url": "https://www.vil.be/",
+              "title": "VIL",
+              "description": "Flemish Institute for Logistics",
+              "description_nl": "Vlaams Instituut voor de Logistiek",
+              "description_fr": "Institut flamand de la logistique",
+              "verified": false,
+              "feed": "https://vil.be/feed/",
+              "lastChecked": "2026-10-04T09:29:00.037Z",
+              "status": "ok",
+              "comment": "",
+              "order": 4
+            },
+            {
+              "id": "link_mutmc5as14",
+              "url": "https://www.touring.be/",
+              "title": "Touring",
+              "description": "Belgian mobility club",
+              "description_nl": "Belgische mobiliteitsclub",
+              "description_fr": "Club belge de mobilité",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:58.949Z",
+              "status": "ok",
+              "comment": "",
+              "order": 5
+            },
+            {
+              "id": "link_mutmc5as15",
+              "url": "https://www.vab.be/",
+              "title": "VAB",
+              "description": "Flemish motorists association",
+              "description_nl": "Vlaamse automobilistenbond",
+              "description_fr": "Association flamande des automobilistes",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:28:58.665Z",
+              "status": "ok",
+              "comment": "",
+              "order": 6
+            }
+          ]
+        },
+        {
+          "id": "sub_ind_3",
+          "title": "Parking",
+          "title_nl": "Parkeren",
+          "title_fr": "Stationnement",
+          "links": [
+            {
+              "id": "link_mutmc5as16",
+              "url": "https://europeanparking.eu/",
+              "title": "European Parking Association",
+              "title_nl": "Europese Parkeervereniging (EPA)",
+              "title_fr": "Association européenne du stationnement (EPA)",
+              "description": "Professional association of the European parking sector",
+              "description_nl": "Beroepsvereniging van de Europese parkeersector",
+              "description_fr": "Association professionnelle du secteur européen du stationnement",
+              "verified": false,
+              "feed": "https://europeanparking.eu/feed/",
+              "lastChecked": "2026-10-04T09:29:00.852Z",
+              "status": "ok",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as17",
+              "url": "https://parking.brussels/",
+              "title": "parking.brussels",
+              "description": "Brussels Region parking agency: policy, data and studies",
+              "description_nl": "Brussels gewestelijk parkeeragentschap: beleid, data en studies",
+              "description_fr": "Agence régionale bruxelloise du stationnement : politique, données et études",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:00.138Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as19",
+              "url": "https://datex2.eu/",
+              "title": "DATEX II",
+              "description": "Standard for exchange of road traffic and parking data",
+              "description_nl": "Standaard voor de uitwisseling van verkeers- en parkeerdata",
+              "description_fr": "Norme d’échange de données de trafic routier et de stationnement",
+              "verified": false,
+              "feed": "https://datex2.eu/feed/",
+              "lastChecked": "2026-10-04T09:29:04.005Z",
+              "status": "ok",
+              "comment": "",
+              "order": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studies",
+      "title": "Studies & Research",
+      "title_nl": "Studies en onderzoek",
+      "title_fr": "Études et recherche",
+      "subsections": [
+        {
+          "id": "sub_stu_1",
+          "title": "Studies & indices",
+          "title_nl": "Studies en indexen",
+          "title_fr": "Études et indices",
+          "links": [
+            {
+              "id": "link_mutmc5as1a",
+              "url": "https://inrix.com/scorecard/",
+              "title": "INRIX Traffic Scorecard",
+              "title_nl": "INRIX Traffic Scorecard",
+              "title_fr": "INRIX Traffic Scorecard",
+              "description": "Annual congestion ranking by city",
+              "description_nl": "Jaarlijkse filerangschikking per stad",
+              "description_fr": "Classement annuel de la congestion par ville",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:04.159Z",
+              "status": "403",
+              "comment": "",
+              "order": 0
+            },
+            {
+              "id": "link_mutmc5as1b",
+              "url": "https://www.tomtom.com/traffic-index/",
+              "title": "TomTom Traffic Index",
+              "description": "Congestion index by city",
+              "description_nl": "Congestie-index per stad",
+              "description_fr": "Indice de congestion par ville",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:04.342Z",
+              "status": "ok",
+              "comment": "",
+              "order": 1
+            },
+            {
+              "id": "link_mutmc5as1c",
+              "url": "https://www.itf-oecd.org/transport-outlook",
+              "title": "ITF Transport Outlook",
+              "title_nl": "ITF – Transport Outlook",
+              "title_fr": "FIT – Perspectives des transports",
+              "description": "Long-term transport demand scenarios",
+              "description_nl": "Langetermijnscenario’s voor de vervoersvraag",
+              "description_fr": "Scénarios à long terme de la demande de transport",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:04.151Z",
+              "status": "403",
+              "comment": "",
+              "order": 2
+            },
+            {
+              "id": "link_mutmc5as1d",
+              "url": "https://www.vias.be/en/",
+              "title": "Vias institute",
+              "title_nl": "Vias institute",
+              "title_fr": "Institut Vias",
+              "description": "Belgian road safety institute: studies and barometer",
+              "description_nl": "Belgisch instituut voor verkeersveiligheid: studies en barometer",
+              "description_fr": "Institut belge pour la sécurité routière : études et baromètre",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:04.313Z",
+              "status": "ok",
+              "comment": "",
+              "order": 3
+            },
+            {
+              "id": "link_mutmc5as1e",
+              "url": "https://www.plan.be/en",
+              "title": "Federal Planning Bureau",
+              "title_nl": "Federaal Planbureau",
+              "title_fr": "Bureau fédéral du Plan",
+              "description": "Belgian transport outlook and studies",
+              "description_nl": "Belgische vervoersvooruitzichten en studies",
+              "description_fr": "Perspectives et études belges sur les transports",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:04.575Z",
+              "status": "ok",
+              "comment": "",
+              "order": 4
+            },
+            {
+              "id": "link_mutmc5as1f",
+              "url": "https://mobi.research.vub.be/",
+              "title": "VUB MOBI / MOBILISE",
+              "title_nl": "VUB MOBI",
+              "title_fr": "VUB MOBI",
+              "description": "Brussels mobility research",
+              "description_nl": "Mobiliteitsonderzoek aan de VUB",
+              "description_fr": "Recherche sur la mobilité à la VUB",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:04.730Z",
+              "status": "ok",
+              "comment": "",
+              "order": 5
+            },
+            {
+              "id": "link_mutmc5as1g",
+              "url": "https://www.tmleuven.be/en",
+              "title": "Transport & Mobility Leuven",
+              "description": "Mobility studies and models",
+              "description_nl": "Mobiliteitsstudies en -modellen",
+              "description_fr": "Études et modèles de mobilité",
+              "verified": false,
+              "lastChecked": "2026-10-04T09:29:05.231Z",
+              "status": "ok",
+              "comment": "",
+              "order": 6
+            },
+            {
+              "id": "link_mutmc5as1h",
+              "url": "https://www.ibsa.brussels/",
+              "title": "IBSA / BISA",
+              "title_nl": "BISA / IBSA",
+              "title_fr": "IBSA / BISA",
+              "description": "Brussels statistics institute (mobility, vehicles)",
+              "description_nl": "Brussels Instituut voor Statistiek en Analyse (mobiliteit, voertuigen)",
+              "description_fr": "Institut bruxellois de statistique et d’analyse (mobilité, véhicules)",
+              "verified": false,
+              "feed": "https://ibsa.brussels/news/rss.xml",
+              "lastChecked": "2026-10-04T09:29:04.827Z",
+              "status": "ok",
+              "comment": "",
+              "order": 7
+            }
+          ]
         }
       ]
     }

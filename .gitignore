@@ -1,3 +1,5 @@
 node_modules/
 .env
 *.log
+_site/
+dead-links.md

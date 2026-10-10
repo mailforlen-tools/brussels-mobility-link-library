@@ -238,15 +238,23 @@
   .order-btns { display: flex; flex-direction: column; gap: 1px; }
   .order-btn { background: none; border: none; cursor: pointer; color: #ccc; font-size: 10px; padding: 1px 3px; line-height: 1; }
   .order-btn:hover { color: var(--accent); }
+
+  /* STATIC (read-only, published) MODE */
+  body.static .link-actions, body.static .order-btns, body.static #add-section-btn,
+  body.static .section-header .btn-icon, body.static .section-header .check-all-btn,
+  body.static .subsection-header .btn-icon, body.static .add-link-form,
+  body.static .subsection-body > .btn-icon, body.static .link-comment-row { display: none !important; }
+  .badge-aanname { display: inline-block; font-size: 10px; font-weight: 700; color: #8a5a00; background: #fff3d6; border: 1px solid #f0d58a; border-radius: 4px; padding: 1px 6px; margin-left: 6px; cursor: help; }
+  .link-note { font-size: 12px; color: var(--muted); margin-top: 4px; }
 </style>
 </head>
 <body>
 
 <nav id="sidebar">
-  <h1>Mobility Links <span>Brussels Mobility Datamap</span></h1>
+  <h1><span id="site-title">Mobility Links</span> <span id="site-subtitle">Brussels Mobility Datamap</span></h1>
   <div id="nav-sections"></div>
   <button id="add-section-btn">+ Add section</button>
-  <div class="sidebar-footer">LinkLib v1.0</div>
+  <div class="sidebar-footer" id="sidebar-footer">LinkLib</div>
 </nav>
 
 <div id="main">
@@ -256,6 +264,7 @@
       <h2 id="topbar-title">Mobility Link Library</h2>
     </div>
     <input type="text" id="search-box" placeholder="Search links…" autocomplete="off">
+    <span id="lang-btns" style="margin-left:12px;display:flex;gap:4px"><button data-lang="nl" onclick="setLang('nl')">NL</button><button data-lang="en" onclick="setLang('en')">EN</button><button data-lang="fr" onclick="setLang('fr')">FR</button></span>
   </div>
   <div id="content">
     <div id="home-view"></div>
@@ -307,11 +316,65 @@ let data = { sections: [] };
 let currentSectionId = null;
 let movingLinkId = null;
 let editingLinkId = null;
+let LANG = 'nl';
+let STATIC = false;
+let CONFIG = { title: { nl: 'Mobiliteitslinks', en: 'Mobility Links', fr: 'Liens mobilité' }, subtitle: {}, defaultLang: 'nl' };
+const UI = {
+  nl: { home: 'Start', search: 'Zoek links…', links: n => n === 1 ? 'link' : 'links', subs: n => n === 1 ? 'subsectie' : 'subsecties',
+        across: (a, b) => `${a} links in ${b} secties`, checked: 'Gecontroleerd', never: 'Nooit gecontroleerd', empty: 'Nog geen links — voeg er hieronder een toe.',
+        aanname: 'AANNAME', aannameTip: 'AANNAME: de beschrijving is niet gecontroleerd tegen de site zelf. De link werd enkel op bereikbaarheid getest.',
+        feed: 'RSS-feed', exports: 'Export', locale: 'nl-BE' },
+  en: { home: 'Home', search: 'Search links…', links: n => n === 1 ? 'link' : 'links', subs: n => n === 1 ? 'subsection' : 'subsections',
+        across: (a, b) => `${a} links across ${b} sections`, checked: 'Checked', never: 'Never checked', empty: 'No links yet — add one below.',
+        aanname: 'ASSUMPTION', aannameTip: 'ASSUMPTION: the description has not been verified against the site itself. The link was only tested for reachability.',
+        feed: 'RSS feed', exports: 'Export', locale: 'en-GB' },
+  fr: { home: 'Accueil', search: 'Rechercher…', links: n => n === 1 ? 'lien' : 'liens', subs: n => n === 1 ? 'sous-section' : 'sous-sections',
+        across: (a, b) => `${a} liens dans ${b} sections`, checked: 'Vérifié', never: 'Jamais vérifié', empty: 'Aucun lien pour l’instant — ajoutez-en un ci-dessous.',
+        aanname: 'HYPOTHÈSE', aannameTip: 'HYPOTHÈSE : la description n’a pas été vérifiée sur le site lui-même. Le lien a seulement été testé pour son accessibilité.',
+        feed: 'Flux RSS', exports: 'Export', locale: 'fr-BE' }
+};
+const U = () => UI[LANG] || UI.en;
+const CT = o => (o && (o[LANG] || o.en)) || '';
+const T = o => (LANG !== 'en' && o['title_' + LANG]) ? o['title_' + LANG] : o.title;
+const D = o => (LANG !== 'en' && o['description_' + LANG]) ? o['description_' + LANG] : o.description;
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem('lang', LANG); } catch (e) {}
+  updateLangBtn();
+  renderSidebar();
+  if (currentSectionId) renderSection(currentSectionId); else renderHome();
+}
+function applyTexts() {
+  document.documentElement.lang = LANG;
+  const t = CT(CONFIG.title);
+  if (t) { document.getElementById('site-title').textContent = t; document.title = t; }
+  document.getElementById('site-subtitle').textContent = CT(CONFIG.subtitle);
+  document.getElementById('search-box').placeholder = U().search;
+  document.getElementById('sidebar-footer').innerHTML = STATIC
+    ? `${U().exports}: <a href="export/bookmarks.html" style="color:#9ab">HTML</a> · <a href="export/links.csv" style="color:#9ab">CSV</a>` : 'LinkLib';
+}
+function updateLangBtn() {
+  applyTexts();
+  document.querySelectorAll('#lang-btns button').forEach(b => {
+    const on = b.dataset.lang === LANG;
+    b.style.cssText = 'padding:6px 10px;cursor:pointer;font-weight:700;border:1px solid var(--accent);border-radius:6px;' + (on ? 'background:var(--accent);color:#fff' : 'background:transparent;color:var(--accent)');
+  });
+}
 
 // ── BOOT ────────────────────────────────────────────────────────────────────
 async function load() {
-  const r = await fetch('/api/data');
-  data = await r.json();
+  try { CONFIG = Object.assign(CONFIG, await (await fetch('config.json')).json()); } catch (e) {}
+  try { LANG = localStorage.getItem('lang') || CONFIG.defaultLang; } catch (e) { LANG = CONFIG.defaultLang; }
+  try {
+    const r = await fetch('/api/data');
+    if (!r.ok) throw new Error('no api');
+    data = await r.json();
+  } catch (e) {
+    STATIC = true;
+    document.body.classList.add('static');
+    data = await (await fetch('data/links.json')).json();
+  }
+  updateLangBtn();
   renderSidebar();
   if (currentSectionId) renderSection(currentSectionId);
   else renderHome();
@@ -330,7 +393,7 @@ function renderSidebar() {
     wrap.className = 'nav-section';
     const btn = document.createElement('button');
     btn.className = 'nav-section-btn' + (currentSectionId === sec.id ? ' active open' : '');
-    btn.innerHTML = `${sec.title} <span class="arrow">▶</span>`;
+    btn.innerHTML = `${T(sec)} <span class="arrow">▶</span>`;
     btn.onclick = () => {
       currentSectionId = sec.id;
       renderSidebar();
@@ -344,7 +407,7 @@ function renderSidebar() {
     for (const sub of sec.subsections) {
       const sb = document.createElement('button');
       sb.className = 'nav-sub-btn';
-      sb.textContent = sub.title;
+      sb.textContent = T(sub);
       sb.onclick = (e) => {
         e.stopPropagation();
         currentSectionId = sec.id;
@@ -382,20 +445,20 @@ function showView(v) {
 
 function renderHome() {
   showView('home');
-  document.getElementById('breadcrumb').textContent = 'Home';
-  document.getElementById('topbar-title').textContent = 'Mobility Link Library';
+  document.getElementById('breadcrumb').textContent = U().home;
+  document.getElementById('topbar-title').textContent = CT(CONFIG.title) || 'Mobility Link Library';
   const icons = { europe: '🇪🇺', federal: '🏛️', brussels: '🏙️', vlaanderen: '🦁', wallonia: '🐓' };
   const view = document.getElementById('home-view');
   let total = 0;
   for (const s of data.sections) for (const sub of s.subsections) total += sub.links.length;
-  view.innerHTML = `<p style="color:#667;font-size:13px;margin-bottom:8px">${total} links across ${data.sections.length} sections</p><div class="section-grid"></div>`;
+  view.innerHTML = `<p style="color:#667;font-size:13px;margin-bottom:8px">${U().across(total, data.sections.length)}</p><div class="section-grid"></div>`;
   const grid = view.querySelector('.section-grid');
   for (const sec of data.sections) {
     let count = 0;
     for (const sub of sec.subsections) count += sub.links.length;
     const tile = document.createElement('div');
     tile.className = 'section-tile';
-    tile.innerHTML = `<div class="icon">${icons[sec.id] || '📂'}</div><h3>${sec.title}</h3><div class="count">${count} link${count !== 1 ? 's' : ''} · ${sec.subsections.length} subsection${sec.subsections.length !== 1 ? 's' : ''}</div>`;
+    tile.innerHTML = `<div class="icon">${icons[sec.id] || '📂'}</div><h3>${T(sec)}</h3><div class="count">${count} ${U().links(count)} · ${sec.subsections.length} ${U().subs(sec.subsections.length)}</div>`;
     tile.onclick = () => { currentSectionId = sec.id; renderSidebar(); renderSection(sec.id); showView('section'); };
     grid.appendChild(tile);
   }
@@ -404,8 +467,8 @@ function renderHome() {
 function renderSection(sectionId, scrollToSubId) {
   const sec = data.sections.find(s => s.id === sectionId);
   if (!sec) return;
-  document.getElementById('breadcrumb').textContent = 'Home › ' + sec.title;
-  document.getElementById('topbar-title').textContent = sec.title;
+  document.getElementById('breadcrumb').textContent = U().home + ' › ' + T(sec);
+  document.getElementById('topbar-title').textContent = T(sec);
   const view = document.getElementById('section-view');
   view.innerHTML = '';
 
@@ -413,7 +476,7 @@ function renderSection(sectionId, scrollToSubId) {
   const hdr = document.createElement('div');
   hdr.className = 'section-header';
   hdr.innerHTML = `
-    <h2>${sec.title}</h2>
+    <h2>${T(sec)}</h2>
     <button class="btn-icon" onclick="renameSection('${sec.id}')">✏️ Rename</button>
     <button class="btn-icon" onclick="addSubsection('${sec.id}')">+ Add subsection</button>
     <button class="check-all-btn" onclick="checkAllSection('${sec.id}')">⚡ Check all links</button>
@@ -436,8 +499,8 @@ function renderSubsection(sec, sub) {
   const hdr = document.createElement('div');
   hdr.className = 'subsection-header';
   hdr.innerHTML = `
-    <h3>${sub.title}</h3>
-    <span style="font-size:11px;color:#889;margin-right:8px">${sub.links.length} link${sub.links.length !== 1 ? 's' : ''}</span>
+    <h3>${T(sub)}</h3>
+    <span style="font-size:11px;color:#889;margin-right:8px">${sub.links.length} ${U().links(sub.links.length)}</span>
     <button class="btn-icon btn-sm" onclick="renameSubsection('${sec.id}','${sub.id}')">✏️</button>
     <button class="btn-icon btn-sm" onclick="deleteSubsection('${sec.id}','${sub.id}')">🗑</button>
   `;
@@ -448,7 +511,7 @@ function renderSubsection(sec, sub) {
   body.id = 'subbody_' + sub.id;
 
   if (sub.links.length === 0) {
-    body.innerHTML = '<div class="empty-sub">No links yet — add one below.</div>';
+    body.innerHTML = STATIC ? '' : `<div class="empty-sub">${U().empty}</div>`;
   }
   for (let i = 0; i < sub.links.length; i++) {
     body.appendChild(renderLinkCard(sec, sub, sub.links[i], i));
@@ -486,7 +549,9 @@ function renderLinkCard(sec, sub, link, idx) {
 
   const statusClass = 'status-' + (link.status === 'ok' ? 'ok' : link.status === '404' ? '404' : link.status === 'error' ? 'error' : 'unknown');
   const statusText = link.status === 'unknown' ? '?' : link.status;
-  const checkedText = link.lastChecked ? 'Checked: ' + new Date(link.lastChecked).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Never checked';
+  const checkedText = link.lastChecked ? U().checked + ': ' + new Date(link.lastChecked).toLocaleDateString(U().locale, { day: '2-digit', month: 'short', year: 'numeric' }) : U().never;
+  const aanname = link.verified === true ? '' : `<span class="badge-aanname" title="${escHtml(U().aannameTip)}">${U().aanname}</span>`;
+  const feedLink = link.feed ? ` · <a href="${escHtml(link.feed)}" target="_blank" rel="noopener">${U().feed}</a>` : '';
   const hasComment = link.comment && link.comment.trim().length > 0;
 
   card.innerHTML = `
@@ -497,12 +562,13 @@ function renderLinkCard(sec, sub, link, idx) {
       </div>
       <div class="link-info">
         <div class="link-title-row">
-          <a class="link-title" href="${escHtml(link.url)}" target="_blank" rel="noopener">${escHtml(link.title || link.url)}</a>
-          <span class="status-badge ${statusClass}">${escHtml(statusText)}</span>
+          <a class="link-title" href="${escHtml(link.url)}" target="_blank" rel="noopener">${escHtml(T(link) || link.url)}</a>
+          <span class="status-badge ${statusClass}">${escHtml(statusText)}</span>${aanname}
         </div>
         <div class="link-url">${escHtml(link.url)}</div>
-        ${link.description ? `<div class="link-desc">${escHtml(link.description)}</div>` : ''}
-        <div class="link-meta">${checkedText}</div>
+        ${D(link) ? `<div class="link-desc">${escHtml(D(link))}</div>` : ''}
+        <div class="link-meta">${checkedText}${feedLink}</div>
+        ${STATIC && hasComment ? `<div class="link-note">${escHtml(link.comment)}</div>` : ''}
       </div>
       <div class="link-actions">
         <button class="btn-icon btn-sm" title="Check link" onclick="checkLink('${link.id}')">⚡</button>
@@ -758,20 +824,20 @@ function doSearch(q) {
   for (const sec of data.sections) {
     for (const sub of sec.subsections) {
       for (const link of sub.links) {
-        const hay = (link.url + ' ' + link.title + ' ' + link.description + ' ' + link.comment).toLowerCase();
+        const hay = (link.url + ' ' + link.title + ' ' + (link.title_fr||'') + ' ' + (link.title_nl||'') + ' ' + link.description + ' ' + (link.description_fr||'') + ' ' + (link.description_nl||'') + ' ' + link.comment).toLowerCase();
         if (!hay.includes(q)) continue;
         found++;
         const item = document.createElement('div');
         item.className = 'search-result-item';
         const statusClass = 'status-' + (link.status === 'ok' ? 'ok' : link.status === '404' ? '404' : link.status === 'error' ? 'error' : 'unknown');
         item.innerHTML = `
-          <div class="search-result-path">${sec.title} › ${sub.title}</div>
+          <div class="search-result-path">${T(sec)} › ${T(sub)}</div>
           <div class="link-title-row">
-            <a class="link-title" href="${escHtml(link.url)}" target="_blank" rel="noopener">${escHtml(link.title || link.url)}</a>
+            <a class="link-title" href="${escHtml(link.url)}" target="_blank" rel="noopener">${escHtml(T(link) || link.url)}</a>
             <span class="status-badge ${statusClass}">${escHtml(link.status === 'unknown' ? '?' : link.status)}</span>
           </div>
           <div class="link-url">${escHtml(link.url)}</div>
-          ${link.description ? `<div class="link-desc">${escHtml(link.description)}</div>` : ''}
+          ${D(link) ? `<div class="link-desc">${escHtml(D(link))}</div>` : ''}
           ${link.comment ? `<div class="link-desc" style="color:#667;font-style:italic">📝 ${escHtml(link.comment.slice(0,120))}${link.comment.length > 120 ? '…' : ''}</div>` : ''}
         `;
         el.appendChild(item);

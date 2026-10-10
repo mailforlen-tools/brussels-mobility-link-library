@@ -1,0 +1,10 @@
+{
+  "title": { "nl": "Brussels Mobility Link Library", "en": "Brussels Mobility Link Library", "fr": "Brussels Mobility Link Library" },
+  "subtitle": {
+    "nl": "Officiële bronnen over wegmobiliteit en parkeren",
+    "en": "Official sources on road mobility and parking",
+    "fr": "Sources officielles sur la mobilité routière et le stationnement"
+  },
+  "defaultLang": "nl",
+  "repo": "https://github.com/mailforlen-tools/brussels-mobility-link-library"
+}

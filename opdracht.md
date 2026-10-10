@@ -32,3 +32,23 @@ Een pull request met: werkende statische site, de Action, een bijgewerkte README
 - Repo is publiek, naam `brussels-mobility-link-library`.
 - Meertalig vanaf het begin: NL, FR en EN (interface en beschrijving per link in drie talen).
 - Startinhoud: samengesteld door Claude uit eigen kennis, met AANNAME-label per link tot die gecontroleerd is (de Action controleert enkel of de link bereikbaar is, niet of de beschrijving klopt).
+
+## Voortgang (2026-10-10, lokale sessie) — bouw hierop verder, begin niet opnieuw
+Reeds gedaan en gepusht naar `main`:
+- Startinhoud: 73 links (wegmobiliteit en parkeren; EU, federaal, Brussel, Vlaanderen, Wallonië, sector, studies), elk met titel en beschrijving in NL, FR en EN. Alle links staan op `"verified": false` (= AANNAME). Op 2026-10-04 is enkel de bereikbaarheid getest; 6 sites blokkeren automatische controle (403) of hadden een certificaatfout.
+- Punt 1 (statische site): `public/index.html` leest `data/links.json` zonder server en is dan alleen-lezen. Met `server.js` blijft bewerken mogelijk.
+- Punt 2 (Action): `.github/workflows/site.yml`, wekelijks woensdag 06:00 UTC, update status en datum, issue bij dode links, publiceert Pages.
+- Punt 4: `public/config.json` (titel, ondertitel, taal).
+- Punt 5: `scripts/export.js` (bookmarks.html + links.csv), `scripts/build.js` bouwt `_site/`.
+- Punt 6: interface en links in NL/FR/EN met taalknop; vertalingen per link in `links.json`.
+- Synchronisatie: de lokale kopie van Len haalt elke donderdag `main` binnen (git pull --rebase), voert zijn eigen paginacontrole uit en pusht wijzigingen terug. Werk dus altijd op een kleine, snelle commit en rebase op `main` voor je pusht.
+
+Nog te doen (voor de cloudsessie):
+1. Per link velden `type` (portaal, API, bestand, organisatie, studie), `format` en `license` toevoegen waar gekend; anders leeg laten.
+2. Beschrijvingen controleren tegen de site en `verified` op `true` zetten waar het klopt; fouten verbeteren in alle drie de talen.
+3. Zes links die niet automatisch bereikbaar zijn nakijken (ITF/OECD x2, UNECE, INRIX, TomTom, ETF-feed).
+4. Het lege onderdeel "STIB / MIVB" (openbaar vervoer) is niet ingevuld: Len wil in deze bibliotheek wegvervoer (auto's, logistiek, parkeren), geen fiets, step of MaaS. Vraag Len of openbaar vervoer erbij hoort voor je het invult.
+5. Bronnen toevoegen die nu ontbreken: open-dataportalen en feeds met echte datasets (DATEX II, NAP Belgium, Vlaamse en Waalse verkeersdata), naburige landen.
+6. De Action en GitHub Pages in de cloud echt testen (workflow starten, Pages-instelling controleren).
+
+Niet getest door de lokale sessie: de GitHub Action zelf, de Pages-publicatie, en de import van `bookmarks.html` in een browser.
