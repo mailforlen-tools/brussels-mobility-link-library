@@ -1,0 +1,73 @@
+name: Check links and publish site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 3'   # every Wednesday 06:00 UTC; the local copy syncs on Thursday
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check all links (weekly or manual run only)
+        if: github.event_name != 'push'
+        run: node scripts/check-links.js
+
+      - name: Commit updated link status
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "link-check[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/links.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Weekly link check: update status and dates"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Open or update an issue for dead links
+        if: github.event_name != 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f dead-links.md ]; then
+            existing=$(gh issue list --state open --label dead-links --json number --jq '.[0].number')
+            if [ -n "$existing" ]; then
+              gh issue comment "$existing" --body-file dead-links.md
+            else
+              gh label create dead-links --color B60205 --description "Links that no longer work" 2>/dev/null || true
+              gh issue create --title "Dead links found by the weekly check" --label dead-links --body-file dead-links.md
+            fi
+          fi
+
+      - name: Build static site
+        run: node scripts/build.js
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
