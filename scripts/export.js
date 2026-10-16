@@ -23,9 +23,9 @@ html += '</DL><p>\n';
 fs.writeFileSync(path.join(out, 'bookmarks.html'), html);
 
 const csv = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
-const cols = ['section', 'subsection', 'url', 'title', 'title_nl', 'title_fr', 'description', 'description_nl', 'description_fr', 'feed', 'verified', 'status', 'lastChecked'];
+const cols = ['section', 'subsection', 'url', 'title', 'title_nl', 'title_fr', 'description', 'description_nl', 'description_fr', 'type', 'feed', 'verified', 'verifiedOn', 'status', 'lastChecked'];
 const rows = [cols.join(',')];
 for (const s of data.sections) for (const u of s.subsections) for (const l of u.links)
-  rows.push([s.title, u.title, l.url, l.title, l.title_nl, l.title_fr, l.description, l.description_nl, l.description_fr, l.feed, l.verified === true, l.status, l.lastChecked].map(csv).join(','));
+  rows.push([s.title, u.title, l.url, l.title, l.title_nl, l.title_fr, l.description, l.description_nl, l.description_fr, l.type, l.feed, l.verified === true, l.verifiedOn, l.status, l.lastChecked].map(csv).join(','));
 fs.writeFileSync(path.join(out, 'links.csv'), '﻿' + rows.join('\n') + '\n');
 console.log('exported to', out);

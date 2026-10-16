@@ -9,6 +9,7 @@ Public, curated directory of official sources on **road mobility** (cars, logist
 - `data/links.json` is the **single source of truth** (plain JSON, easy to diff and back up).
 - `public/` is a static site: it reads `data/links.json` and needs no server. When opened through the local app (`server.js`) it also allows editing.
 - Per link: `title`, `description` (English) and optional `title_nl`, `title_fr`, `description_nl`, `description_fr`. A link without a translation shows the English text.
+- Per link also: `type` (institution, statistics, database, portal, service, standard, study, organisation), `verified` and `verifiedOn`. `verified: true` means the site's own title or description confirmed what the entry says, on the date in `verifiedOn`; details beyond that are not checked. `format` and `license` are not filled in: the front pages do not state them reliably, so they stay empty until someone reads the dataset pages.
 - `public/config.json` holds the site title, subtitle and default language (so another city can fork and rename the list).
 
 ## Run locally (Windows)

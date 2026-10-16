@@ -52,3 +52,17 @@ Nog te doen (voor de cloudsessie):
 6. De Action en GitHub Pages in de cloud echt testen (workflow starten, Pages-instelling controleren).
 
 Niet getest door de lokale sessie: de GitHub Action zelf, de Pages-publicatie, en de import van `bookmarks.html` in een browser.
+
+## Voortgang 2026-10-16 (lokale sessie)
+Gedaan:
+- Elke link is tegen de site zelf nagekeken (titel en beschrijving van de pagina, 2026-10-16). 48 van de 73 staan nu op `verified: true` met `verifiedOn`; de rest blijft AANNAME omdat de site te weinig zegt of niet te laden was.
+- Gecorrigeerd: Open Data Brussels (opendata.brussels.be) is het portaal van de Stad Brussel, niet van het gewest; ETRMA heet nu Tyres Europe; beschrijvingen van Touring en VAB aangepast. Alles in NL/FR/EN.
+- Veld `type` toegevoegd aan alle links (door Claude toegekend op basis van wat de pagina is) en zichtbaar op de site in 3 talen.
+- Niet te controleren: ITF/OECD (2 links) en UNECE blokkeren elke automatische en ook de browsercontrole met een bot-controle; EUR-Lex, EUCAR en Trafiroutes tonen zonder JavaScript geen tekst. CEDR: het certificaat werd door de controle als verlopen gemeld, maar de site laadt gewoon in de browser.
+- `format` en `license` blijven leeg: op de voorpagina's staat dat niet betrouwbaar.
+
+Nog te doen:
+1. Per dataportaal en dataset de pagina's lezen en `format` en `license` invullen.
+2. De overige 25 links met `verified: false` nalezen (zie lijst via `data/links.json`).
+3. Vraag aan Len: openbaar vervoer (STIB/MIVB, leeg onderdeel) erbij of niet.
+4. Meer bronnen (DATEX II, NAP Belgium, Vlaamse en Waalse verkeersdata, buurlanden).

@@ -333,6 +333,11 @@ const UI = {
         aanname: 'HYPOTHÈSE', aannameTip: 'HYPOTHÈSE : la description n’a pas été vérifiée sur le site lui-même. Le lien a seulement été testé pour son accessibilité.',
         feed: 'Flux RSS', exports: 'Export', locale: 'fr-BE' }
 };
+const TYPES = {
+  nl: { institution: 'instelling', statistics: 'statistieken', database: 'databank', portal: 'dataportaal', service: 'dienst', standard: 'standaard', study: 'studie of index', organisation: 'organisatie' },
+  en: { institution: 'institution', statistics: 'statistics', database: 'database', portal: 'data portal', service: 'service', standard: 'standard', study: 'study or index', organisation: 'organisation' },
+  fr: { institution: 'institution', statistics: 'statistiques', database: 'base de données', portal: 'portail de données', service: 'service', standard: 'norme', study: 'étude ou indice', organisation: 'organisation' }
+};
 const U = () => UI[LANG] || UI.en;
 const CT = o => (o && (o[LANG] || o.en)) || '';
 const T = o => (LANG !== 'en' && o['title_' + LANG]) ? o['title_' + LANG] : o.title;
@@ -551,6 +556,7 @@ function renderLinkCard(sec, sub, link, idx) {
   const statusText = link.status === 'unknown' ? '?' : link.status;
   const checkedText = link.lastChecked ? U().checked + ': ' + new Date(link.lastChecked).toLocaleDateString(U().locale, { day: '2-digit', month: 'short', year: 'numeric' }) : U().never;
   const aanname = link.verified === true ? '' : `<span class="badge-aanname" title="${escHtml(U().aannameTip)}">${U().aanname}</span>`;
+  const typeLabel = link.type ? ` · ${(TYPES[LANG] || TYPES.en)[link.type] || link.type}` : '';
   const feedLink = link.feed ? ` · <a href="${escHtml(link.feed)}" target="_blank" rel="noopener">${U().feed}</a>` : '';
   const hasComment = link.comment && link.comment.trim().length > 0;
 
@@ -567,7 +573,7 @@ function renderLinkCard(sec, sub, link, idx) {
         </div>
         <div class="link-url">${escHtml(link.url)}</div>
         ${D(link) ? `<div class="link-desc">${escHtml(D(link))}</div>` : ''}
-        <div class="link-meta">${checkedText}${feedLink}</div>
+        <div class="link-meta">${checkedText}${typeLabel}${feedLink}</div>
         ${STATIC && hasComment ? `<div class="link-note">${escHtml(link.comment)}</div>` : ''}
       </div>
       <div class="link-actions">
