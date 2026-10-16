@@ -2,7 +2,7 @@
 
 Public, curated directory of official sources on **road mobility** (cars, logistics, parking) in Brussels, Belgium and Europe: institutions, road operators, open-data portals, professional organisations, European bodies and studies. Interface and link descriptions are available in **Dutch, French and English**.
 
-> **AANNAME / ASSUMPTION:** link descriptions were written from general knowledge and have not been verified against the sites. Every link shows this label until `"verified": true` is set. The weekly check only tests that a link is reachable, not that its description is right.
+> **AANNAME / ASSUMPTION:** link descriptions were written from general knowledge. Since 2026-10-16 most have been checked against the sites' own titles and descriptions (`"verified": true`); every other link shows this label. The weekly check only tests that a link is reachable, not that its description is right.
 
 ## How it works
 
